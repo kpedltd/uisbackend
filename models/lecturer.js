@@ -2,7 +2,7 @@ var bCrypt = require('bcrypt');
 
 module.exports = function (sequelize, Sequelize) {
 
-    var student = sequelize.define('student', {
+    var lecturer = sequelize.define('lecturer', {
         firstName: {
             type: Sequelize.STRING,
             allowNull: false,
@@ -27,12 +27,11 @@ module.exports = function (sequelize, Sequelize) {
             type: Sequelize.STRING,
             allowNull: true,
         },
-        departmentId: {
-            type: Sequelize.INTEGER,
-            allowNull: false,
-            foreignKey : true
+        biography: {
+            type: Sequelize.STRING,
+            allowNull: true
         },
-        groupId: {
+        departmentId: {
             type: Sequelize.INTEGER,
             allowNull: false,
             foreignKey : true
@@ -53,19 +52,14 @@ module.exports = function (sequelize, Sequelize) {
         }
     });
 
-    student.prototype.PassIsEquals = function (password) {
+    lecturer.prototype.PassIsEquals = function (password) {
         return bCrypt.compareSync(password, this.en_password);
     };
 
-    student.associate = function (models) {
-        student.hasMany(models.student_metrics, { foreignKey: 'studentId' });
-        student.hasMany(models.rating_log, { foreignKey: 'studentId' });
-        student.hasMany(models.attendance_log, { foreignKey: 'studentId' });
-        student.hasMany(models.task_result, { foreignKey: 'studentId' });
-
-        student.belongsTo(models.department, { foreignKey: 'departmentId' });
-        student.belongsTo(models.group, { foreignKey: 'groupId' });
+    lecturer.associate = function (models) {
+        lecturer.hasMany(models.subject, { foreignKey: 'lecturerId' });
+        lecturer.belongsTo(models.department, { foreignKey: 'departmentId' });
     };
 
-    return student;
+    return lecturer;
 };

@@ -83,7 +83,7 @@ app.set('port', 3000);
 db.sequelize.authenticate().
     then(() => {
         db.sequelize
-        .sync()
+        .sync({force : true})
         .then(() => {
             app.listen(app.get('port'), function () {
             });
