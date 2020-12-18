@@ -5,18 +5,16 @@ var passport = require('passport');
 var flash = require('connect-flash');
 var session = require('express-session');
 var db = require('./models');
- 
+var path = require('path');
 
 
-// var routes = require('./routes/index');
-// var register = require('./routes/register');
-// var auth = require('./routes/auth');
-// var signout = require('./routes/signout');
-// var profile = require('./routes/profile');
-// var articles = require('./routes/articles');
-// var api = require('./routes/api');
+var test = require('./controllers/test');
+
 
 var app = express();
+
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
 app.use(flash());
@@ -25,6 +23,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({ secret: 'barebuh', resave: false, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(express.static(__dirname + '../public'));
 
 // passport.serializeStudent((user, done) => {
 //     done(null, user.id);
@@ -48,9 +47,12 @@ app.use(passport.session());
 // app.use('/api', api);
 // app.use('/', routes);
 
+
+app.use('/test', test);
+
+
 // require("./passport/register")(passport);
 // require("./passport/auth")(passport);
-
 
 app.use(function (req, res, next) {
     var err = new Error('Not Found');
@@ -62,7 +64,7 @@ app.use(function (req, res, next) {
 if (app.get('env') === 'development') {
     app.use(function (err, req, res, next) {
         res.status(err.status || 500);
-        res.render('error', {
+        res.json({
             message: err.message,
             error: err
         });
@@ -72,7 +74,7 @@ if (app.get('env') === 'development') {
 
 app.use(function (err, req, res, next) {
     res.status(err.status || 500);
-    res.render('error', {
+    res.json({
         message: err.message,
         error: {}
     });
@@ -83,7 +85,7 @@ app.set('port', 3000);
 db.sequelize.authenticate().
     then(() => {
         db.sequelize
-        .sync({force : true})
+        .sync({force : false})
         .then(() => {
             app.listen(app.get('port'), function () {
             });

@@ -1,14 +1,13 @@
 module.exports = function (sequelize, Sequelize) {
-
     var department = sequelize.define('department', {
         name: {
-            type: Sequelize.STRING,
+            type: Sequelize.STRING(256),
             allowNull: false,
             notEmpty: true
         },
         headId: {
             type: Sequelize.INTEGER,
-            allowNull: false,
+            allowNull: true,
             foreignKey : true
         },
         facultyId: {

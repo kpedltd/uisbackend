@@ -13,6 +13,7 @@ services:
      - /var/postgresql/data2:/var/lib/postgresql/data2
     networks:
      - postgresql
+    container_name: postgres
 
   pgadmin4:
     image: dpage/pgadmin4
@@ -30,6 +31,17 @@ services:
     networks:
      - postgresql
 
+  #backend:
+    #image: uber42/uisbackend:V1
+    #depends_on:
+    #  - db
+    #links:
+    #  - db
+    #networks:
+    #  - postgresql
+    #ports:
+    #  - 8000:3000
+
 networks:
   postgresql:
-       driver: bridge
+      driver: bridge

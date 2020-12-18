@@ -1,22 +1,17 @@
 module.exports = function (sequelize, Sequelize) {
 
     var task = sequelize.define('task', {
-        state: {
-            type: Sequelize.ENUM('visited', 'skiped'),
-            allowNull: false,
-            notEmpty: true
-        },
         description: {
             type: Sequelize.STRING,
             allowNull: false
         },
         photo: {
             type: Sequelize.STRING,
-            allowNull: false
+            allowNull: true
         },
         test: {
             type: Sequelize.STRING,
-            allowNull: false
+            allowNull: true
         },
         begin: {
             type: Sequelize.DATEONLY,

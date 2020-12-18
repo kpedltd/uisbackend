@@ -8,7 +8,7 @@ module.exports = function (sequelize, Sequelize) {
         },
         curatorId: {
             type: Sequelize.INTEGER,
-            allowNull: false,
+            allowNull: true,
             foreignKey : true
         },
         eduProgramId: {

@@ -32,7 +32,9 @@ module.exports = function (sequelize, Sequelize) {
             allowNull: false,
             foreignKey: true
         }
-    }, {});
+    }, {
+        timestamps: false
+    });
 
     schedule.associate = function (models) {
         schedule.belongsTo(models.subject, { foreignKey: 'subjectId' });

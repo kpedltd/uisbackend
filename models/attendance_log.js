@@ -20,7 +20,9 @@ module.exports = function (sequelize, Sequelize) {
             allowNull: false,
             foreignKey : true
         }
-    }, {});
+    }, {
+        timestamps: false
+    });
 
     attendance_log.associate = function (models) {
         attendance_log.belongsTo(models.schedule, { foreignKey: 'scheduleId' });

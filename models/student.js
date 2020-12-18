@@ -1,4 +1,4 @@
-var bCrypt = require('bcrypt');
+//var bCrypt = require('bcrypt');
 
 module.exports = function (sequelize, Sequelize) {
 
@@ -48,13 +48,15 @@ module.exports = function (sequelize, Sequelize) {
     }, {
         setterMethods: {
             password: function (value) {
-                this.setDataValue('en_password', bCrypt.hashSync(value, bCrypt.genSaltSync(8)));
+                this.en_password = value;
+                //this.setDataValue('en_password', bCrypt.hashSync(value, bCrypt.genSaltSync(8)));
             }
         }
     });
 
     student.prototype.PassIsEquals = function (password) {
-        return bCrypt.compareSync(password, this.en_password);
+        return password == this.en_password;
+       // return bCrypt.compareSync(password, this.en_password);
     };
 
     student.associate = function (models) {

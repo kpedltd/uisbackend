@@ -10,7 +10,9 @@ module.exports = function (sequelize, Sequelize) {
             allowNull: false,
             foreignKey : true
         }
-    }, {});
+    }, {
+        timestamps: false
+    });
 
     student_metrics.associate = function(models) {
         student_metrics.belongsTo(models.student, {foreignKey : 'studentId'});  

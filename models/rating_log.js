@@ -14,7 +14,9 @@ module.exports = function (sequelize, Sequelize) {
             type: Sequelize.ENUM('1', '2', '3', '4', '5', 'record'),
             allowNull: false
         }
-    }, {});
+    }, {
+        timestamps: false
+    });
 
     rating_log.associate = function(models) {
         rating_log.belongsTo(models.student, { foreignKey: 'studentId' });  

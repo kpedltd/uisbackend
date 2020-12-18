@@ -9,6 +9,12 @@ const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + '/../config/config.json')[env];
 const db = {};
 
+const logStream = fs.
+    createWriteStream('./log/sequelize.sql', {'flags': 'w'});
+
+config.logQueryParameters = true;
+config.logging = msg => logStream.write(msg);
+
 let sequelize;
 if (config.use_env_variable) {
     let url = dotenv.parsed[config.use_env_variable];

@@ -1,10 +1,13 @@
 module.exports = function (sequelize, Sequelize) {
 
     var task_result = sequelize.define('task_result', {
-        name: {
-            type: Sequelize.STRING,
-            allowNull: false,
-            notEmpty: true
+        file: {
+            type: Sequelize.STRING(256),
+            allowNull: true
+        },
+        grade: {
+            type: Sequelize.INTEGER,
+            allowNull: true
         },
         studentId: {
             type: Sequelize.INTEGER,

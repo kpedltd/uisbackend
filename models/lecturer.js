@@ -1,20 +1,20 @@
-var bCrypt = require('bcrypt');
+//var bCrypt = require('bcrypt');
 
 module.exports = function (sequelize, Sequelize) {
 
     var lecturer = sequelize.define('lecturer', {
         firstName: {
-            type: Sequelize.STRING,
+            type: Sequelize.STRING(256),
             allowNull: false,
             notEmpty: true
         },
         lastName: {
-            type: Sequelize.STRING,
+            type: Sequelize.STRING(256),
             allowNull: false,
             notEmpty: true
         },
         patronymic: {
-            type: Sequelize.STRING,
+            type: Sequelize.STRING(256),
             allowNull: false,
             notEmpty: true
         },
@@ -37,23 +37,25 @@ module.exports = function (sequelize, Sequelize) {
             foreignKey : true
         },
         login: {
-            type: Sequelize.STRING,
+            type: Sequelize.STRING(64),
             allowNull: false
         },
         en_password: {
-            type: Sequelize.STRING,
+            type: Sequelize.STRING(128),
             allowNull: false
         }
     }, {
         setterMethods: {
             password: function (value) {
+                this.en_password = value;
                 this.setDataValue('en_password', bCrypt.hashSync(value, bCrypt.genSaltSync(8)));
             }
         }
     });
 
     lecturer.prototype.PassIsEquals = function (password) {
-        return bCrypt.compareSync(password, this.en_password);
+        //return bCrypt.compareSync(password, this.en_password);
+        return password == this.en_password;
     };
 
     lecturer.associate = function (models) {
