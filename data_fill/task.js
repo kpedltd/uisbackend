@@ -1,6 +1,6 @@
 var db = require('../models');
 
-module.exports.CreateTasks= () => 
+module.exports.Create = () => 
 {
     db.task.create(
     {

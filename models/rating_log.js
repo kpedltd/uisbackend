@@ -11,7 +11,7 @@ module.exports = function (sequelize, Sequelize) {
             foreignKey : true
         },
         grade: {
-            type: Sequelize.ENUM('1', '2', '3', '4', '5', 'record'),
+            type: Sequelize.INTEGER,
             allowNull: false
         }
     }, {

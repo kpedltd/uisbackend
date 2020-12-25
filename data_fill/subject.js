@@ -1,6 +1,6 @@
 var db = require('../models');
 
-module.exports.CreateSubject = () =>
+module.exports.Create = () =>
 {
     db.subject.create(
     {

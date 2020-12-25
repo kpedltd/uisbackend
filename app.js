@@ -6,16 +6,16 @@ var flash = require('connect-flash');
 var session = require('express-session');
 var db = require('./models');
 var path = require('path');
-
+var helmet = require("helmet");
 
 var test = require('./controllers/test');
-
 
 var app = express();
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+app.use(helmet());
 app.use(logger('dev'));
 app.use(flash());
 app.use(bodyParser.json());
@@ -25,16 +25,30 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(__dirname + '../public'));
 
-// passport.serializeStudent((user, done) => {
-//     done(null, user.id);
+// passport.serializeStudent((student, done) => {
+//     done(null, student.id);
 // });
 
 // passport.deserializeStudent((id, done) => {
-//     db.user.findById(id).then(user => {
-//         if (user) {
-//             done(null, user.get());
+//     db.user.findById(id).then(student => {
+//         if (student) {
+//             done(null, student.get());
 //         } else {
-//             done(user.errors, null);
+//             done(student.errors, null);
+//         }
+//     });
+// });
+
+// passport.serializeLecturer((lecturer, done) => {
+//     done(null, lecturer.id);
+// });
+
+// passport.deserializeLecturer((id, done) => {
+//     db.user.findById(id).then(lecturer => {
+//         if (lecturer) {
+//             done(null, lecturer.get());
+//         } else {
+//             done(lecturer.errors, null);
 //         }
 //     });
 // });
@@ -50,9 +64,14 @@ app.use(express.static(__dirname + '../public'));
 
 app.use('/test', test);
 
+require("./passport/lecturer_auth")(passport);
+require("./passport/student_auth")(passport);
+require("./passport/index")(passport);
 
-// require("./passport/register")(passport);
-// require("./passport/auth")(passport);
+var routes_student = require('./routes/student')
+
+app.use('/student', routes_student);
+
 
 app.use(function (req, res, next) {
     var err = new Error('Not Found');

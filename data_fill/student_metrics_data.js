@@ -1,6 +1,6 @@
 var db = require("../models")
 
-module.exports.CreateStudentMetrics = () =>
+module.exports.Create = () =>
 {
     db.student_metrics.create(
     {

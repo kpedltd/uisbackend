@@ -1,6 +1,6 @@
 var db = require("../models")
 
-module.exports.CreateStudent = () =>
+module.exports.Create = () =>
 {
     db.student.create(
     {

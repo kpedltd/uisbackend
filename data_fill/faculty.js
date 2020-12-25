@@ -1,18 +1,16 @@
 var db = require('../models');
 
-module.exports.CreateFaculty = () =>
+module.exports.Create = () =>
 {
     db.faculty.create(
     {
         id: 1,
-        name: "Факультет вычислительной техники",
-        headId: 1
+        name: "Факультет вычислительной техники"
     });
 
     db.faculty.create(
     {
         id: 2,
-        name: "Факультет информационных технологий",
-        headId: 4
+        name: "Факультет информационных технологий"
     });
 }

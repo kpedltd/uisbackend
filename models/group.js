@@ -6,11 +6,6 @@ module.exports = function (sequelize, Sequelize) {
             allowNull: false,
             notEmpty: true
         },
-        curatorId: {
-            type: Sequelize.INTEGER,
-            allowNull: true,
-            foreignKey : true
-        },
         eduProgramId: {
             type: Sequelize.INTEGER,
             allowNull: false,
@@ -24,7 +19,6 @@ module.exports = function (sequelize, Sequelize) {
         group.hasMany(models.schedule, { foreignKey: 'groupId' });
         group.hasMany(models.student, { foreignKey: 'groupId' });
         group.hasMany(models.task, { foreignKey: 'groupId' });
-
         group.hasOne(models.lecturer, { foreignKey: 'curatorId' });
     };
 

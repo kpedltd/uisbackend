@@ -1,6 +1,6 @@
 var db = require('../models');
 
-module.exports.CreateEducationProgram = () => 
+module.exports.Create = () => 
 {
     db.edu_program.create(
     {

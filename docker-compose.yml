@@ -31,16 +31,16 @@ services:
     networks:
      - postgresql
 
-  #backend:
-    #image: uber42/uisbackend:V1
-    #depends_on:
-    #  - db
-    #links:
-    #  - db
-    #networks:
-    #  - postgresql
-    #ports:
-    #  - 8000:3000
+  # backend:
+  #   image: uber42/uisbackend:V1
+  #   depends_on:
+  #    - db
+  #   links:
+  #    - db
+  #   networks:
+  #    - postgresql
+  #   ports:
+  #    - 8000:3000
 
 networks:
   postgresql:

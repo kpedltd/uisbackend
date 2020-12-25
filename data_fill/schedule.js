@@ -1,6 +1,6 @@
 var db = require('../models')
 
-module.exports.CreateSchedule = () =>
+module.exports.Create = () =>
 {
     db.schedule.create(
     {

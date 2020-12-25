@@ -5,11 +5,6 @@ module.exports = function (sequelize, Sequelize) {
             allowNull: false,
             notEmpty: true
         },
-        headId: {
-            type: Sequelize.INTEGER,
-            allowNull: true,
-            foreignKey : true
-        },
         facultyId: {
             type: Sequelize.INTEGER,
             allowNull: false,
@@ -21,6 +16,7 @@ module.exports = function (sequelize, Sequelize) {
         department.belongsTo(models.faculty, { foreignKey: 'facultyId' });
         department.hasMany(models.lecturer, { foreignKey: 'departmentId' });
         department.hasMany(models.student, { foreignKey: 'departmentId' });
+
         department.hasOne(models.lecturer, { foreignKey: 'headId' });
     };
 

@@ -1,6 +1,6 @@
 var db = require('../models');
 
-module.exports.CreateLecturer = () =>
+module.exports.Create = () =>
 {
     db.lecturer.create(
     {
@@ -12,7 +12,8 @@ module.exports.CreateLecturer = () =>
         biography: "Родилась в Пензе",
         departmentId: "1",
         login: "aksenova_ksenia",
-        en_password: "doigjohjaerohah"
+        en_password: "doigjohjaerohah",
+        deanId: 1
     });
 
     db.lecturer.create(
@@ -25,7 +26,9 @@ module.exports.CreateLecturer = () =>
         biography: "Родился в Москве",
         departmentId: "1",
         login: "aleksandrov_dmitriy",
-        en_password: "jhgdksgftksrtsr"
+        en_password: "jhgdksgftksrtsr",
+        curatorId: 1,
+        headId: 1
     });
 
     db.lecturer.create(
@@ -38,7 +41,8 @@ module.exports.CreateLecturer = () =>
         biography: "Родился в Пензе",
         departmentId: "1",
         login: "vas_roman",
-        en_password: "32463oi6jlksfgd"
+        en_password: "32463oi6jlksfgd",
+        curatorId: 2
     });
 
     db.lecturer.create(
@@ -51,7 +55,8 @@ module.exports.CreateLecturer = () =>
         biography: "Родилась в Пензе",
         departmentId: "2",
         login: "zaharova_anna",
-        en_password: "!Rjksdbhgk2378"
+        en_password: "!Rjksdbhgk2378",
+        deanId: 2
     });
 
     db.lecturer.create(
@@ -64,6 +69,8 @@ module.exports.CreateLecturer = () =>
         biography: "Родился в Пензе",
         departmentId: "2",
         login: "minin_grisha",
-        en_password: "dkjfhn@@#"
+        en_password: "dkjfhn@@#",
+        curatorId: 3,
+        headId: 2
     });
 }

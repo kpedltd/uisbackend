@@ -36,6 +36,21 @@ module.exports = function (sequelize, Sequelize) {
             allowNull: false,
             foreignKey : true
         },
+        headId: {
+            type: Sequelize.INTEGER,
+            allowNull: true,
+            foreignKey : true
+        },
+        curatorId: {
+            type: Sequelize.INTEGER,
+            allowNull: true,
+            foreignKey : true
+        },
+        deanId: {
+            type: Sequelize.INTEGER,
+            allowNull: true,
+            foreignKey : true
+        },
         login: {
             type: Sequelize.STRING(64),
             allowNull: false
