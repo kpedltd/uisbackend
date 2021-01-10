@@ -15,7 +15,7 @@ router.get('/getById/:id', async (req, res) =>
         res.json({
             status: true,
             message: 'Все круто',
-            group: group
+            data: group
         });
     } catch(err) {
         res.json({
@@ -36,7 +36,7 @@ router.get('/getByName/:name', async (req, res) =>
         res.json({
             status: true,
             message: 'Все круто',
-            group: group
+            data: group
         });
     } catch(err) {
         res.json({

@@ -4,6 +4,7 @@ var jwt = require('jsonwebtoken');
 var passport = require('passport');
 var db = require('../models');
 
+
 router.get('/getById/:id', async (req, res) => 
 {
     try {
@@ -15,7 +16,7 @@ router.get('/getById/:id', async (req, res) =>
         res.json({
             status: true,
             message: 'Все круто',
-            edu_program: edu_program
+            data: edu_program
         });
     } catch(err) {
         res.json({
@@ -36,7 +37,7 @@ router.get('/getByName/:name', async (req, res) =>
         res.json({
             status: true,
             message: 'Все круто',
-            edu_program: edu_program
+            data: edu_program
         });
     } catch(err) {
         res.json({

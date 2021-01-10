@@ -11,7 +11,11 @@ module.exports = function (passport) {
             },
             async (login, password, done) => {
                 try {
-                    const user = await db.lecturer.findOne({ login });
+                    const user = await db.lecturer.findOne({
+                        where: {
+                            login: login
+                        }
+                    });
 
                     if (!user) {
                         return done(null, false, { message: 'Преподавателя с таким логином нет' });

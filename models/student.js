@@ -56,7 +56,7 @@ module.exports = function (sequelize, Sequelize) {
 
     student.prototype.PassIsEquals = function (password) {
         return password == this.en_password;
-       // return bCrypt.compareSync(password, this.en_password);
+       //return bCrypt.compareSync(password, this.en_password);
     };
 
     student.associate = function (models) {

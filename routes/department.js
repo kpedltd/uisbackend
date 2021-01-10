@@ -36,7 +36,7 @@ router.get('/getByName/:name', async (req, res) =>
         res.json({
             status: true,
             message: 'Все круто',
-            department: department
+            data: department
         });
     } catch(err) {
         res.json({

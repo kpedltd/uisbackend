@@ -7,6 +7,8 @@ var session = require('express-session');
 var db = require('./models');
 var path = require('path');
 var helmet = require("helmet");
+var fileUpload = require("express-fileupload")
+var serveIndex = require('serve-index')
 
 var test = require('./controllers/test');
 
@@ -19,11 +21,12 @@ app.use(helmet());
 app.use(logger('dev'));
 app.use(flash());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(session({ secret: 'barebuh', resave: false, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(express.static(__dirname + '../public'));
+app.use(express.static(__dirname + '/public'));
+app.use(fileUpload({limits: { fileSize: 50 * 1024 * 1024 }}));
 
 // passport.serializeStudent((student, done) => {
 //     done(null, student.id);
@@ -68,10 +71,26 @@ require("./passport/lecturer_auth")(passport);
 require("./passport/student_auth")(passport);
 require("./passport/index")(passport);
 
-var routes_student = require('./routes/student')
+var routes_student = require('./routes/student');
+var routes_lecturer = require('./routes/lecturer');
+var routes_schedule = require('./routes/schedule');
+var routes_subject = require('./routes/subject');
+var routes_attendance = require('./routes/attendance');
 
 app.use('/student', routes_student);
+app.use('/lecturer', routes_lecturer);
+app.use('/schedule', routes_schedule);
+app.use('/subject', routes_subject);
+app.use('/attendance', routes_attendance);
 
+
+
+app.post('/say', (req, res) =>
+{
+    res.json({
+        say: req.body.say
+    });
+});
 
 app.use(function (req, res, next) {
     var err = new Error('Not Found');
