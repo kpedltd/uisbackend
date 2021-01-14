@@ -62,7 +62,38 @@ router.get('/getme', passport.authenticate('jwt', { session: false }), async (re
     }
 })
 
-router.get('/edit', passport.authenticate('jwt', { session: false }), async (req, res) => 
+router.post('/visit', 
+    passport.authenticate('jwt', { session: false }), 
+    async (req, res) => 
+{
+    try{
+        var student = await db.student.findOne({
+            where: {
+                login: req.user.login
+            }
+        });
+    
+        await db.student_metrics.create(
+        {
+            date: Date.now(),
+            studentId: student.id
+        });
+    
+        res.json({
+            status: true,
+            token: req.query.secret_token
+        });
+    } catch(err) {
+        res.json({
+            status: false,
+            message: err.message
+        });
+    }
+});
+
+router.post('/edit', 
+    passport.authenticate('jwt', { session: false }), 
+    async (req, res) => 
 {
     try {
         var student = await db.student.findOne({

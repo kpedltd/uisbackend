@@ -5,14 +5,15 @@ module.exports.Create = () =>
     db.task_result.create(
     {
         grade: 5,
-        studentId: 1,
+        studentId: 22,
         taskId: 1
     });
     db.task_result.create(
     {
         grade: 3,
         studentId: 2,
-        taskId: 1
+        taskId: 1,
+        comment: "Неверно выполнено задание"
     });
     db.task_result.create(
     {
@@ -41,31 +42,31 @@ module.exports.Create = () =>
     db.task_result.create(
     {
         grade: 4,
-        studentId: 33,
+        studentId: 1,
         taskId: 2
     });
     db.task_result.create(
     {
         grade: 4,
-        studentId: 34,
+        studentId: 2,
         taskId: 2
     });
     db.task_result.create(
     {
         grade: 5,
-        studentId: 35,
+        studentId: 3,
         taskId: 2
     });
     db.task_result.create(
     {
         grade: 4,
-        studentId: 36,
+        studentId: 4,
         taskId: 2
     });
     db.task_result.create(
     {
         grade: 3,
-        studentId: 37,
+        studentId: 5,
         taskId: 2
     });
 }

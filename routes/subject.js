@@ -6,18 +6,37 @@ var db = require('../models');
 const Sequelize = require('sequelize');
 
 
-router.get('/getById/:id', async (req, res) => 
+router.get('/student', 
+    passport.authenticate('jwt', { session: false }), 
+    async (req, res) => 
 {
     try {
-        var subject = await db.subject.findOne({
+        var student = await db.student.findOne({
             where: {
-                id: req.params.id
+                login: req.user.login
             }
         });
+
+        var groups = await db.schedule.findAll({
+            raw: true,
+            attributes: [
+                [Sequelize.literal('DISTINCT \"subjectId\"'), 'subjectId']
+            ],
+            where: {
+                groupId: student.groupId
+            }
+        });
+
+        for(var i = 0;i < groups.length;i++)
+        {
+            var groupinfo = await db.subject.findByPk(groups[i].subjectId);
+            groups[i].name = groupinfo.name;
+        }
+
         res.json({
             status: true,
             error: 'Все круто',
-            subject: subject
+            data: groups
         });
     } catch(err) {
         res.json({

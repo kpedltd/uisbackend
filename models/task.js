@@ -1,6 +1,10 @@
 module.exports = function (sequelize, Sequelize) {
 
     var task = sequelize.define('task', {
+        title:{
+            type: Sequelize.STRING,
+            allowNull: false
+        },
         description: {
             type: Sequelize.STRING,
             allowNull: false
@@ -10,7 +14,7 @@ module.exports = function (sequelize, Sequelize) {
             allowNull: true
         },
         test: {
-            type: Sequelize.STRING,
+            type: Sequelize.TEXT,
             allowNull: true
         },
         begin: {

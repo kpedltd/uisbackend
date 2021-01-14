@@ -9,20 +9,25 @@ router.get('/students',
     async (req, res) => 
 {
     try{
-        var log = await db.attendance_log.findAll({
+        var log = await db.rating_log.findAll({
             attributes: [
-                'state', 
+                'grade', 
             ],
             where: {
-                scheduleId: req.query.scheduleId,
-                date: new Date(req.query.date)
+                subjectId: req.query.subjectId,
             },
             include: {
                 model: db.student,
                 attributes: [
                     'id', 'firstName', 'lastName', 'patronymic'
-                ]
-            }
+                ],
+                where:{
+                    groupId: req.query.groupId
+                }
+            },
+            order: [
+                ['student', 'id', 'DESC']
+            ]
         });
 
         if(log.length == 0)
@@ -67,15 +72,14 @@ router.post('/create_entries',
         var result = [];
         for(var i = 0;i < students.length;i++)
         {
-            await db.attendance_log.create({
-                state: 'skiped',
-                date: new Date(req.query.date),
-                scheduleId: req.query.scheduleId,
+            await db.rating_log.create({
+                grade: 0,
+                subjectId: req.query.subjectId,
                 studentId: students[i].id
             });
 
             result.push({
-                state: 'skiped',
+                state: 0,
                 student: students[i]
             });
         }
@@ -94,20 +98,19 @@ router.post('/create_entries',
     }
 });
 
-router.post('/change_state',
+router.post('/student_rate',
     passport.authenticate('jwt', { session: false }), 
     async (req, res) => 
 {
     try{
-        var attendance = await db.attendance_log.findOne({
+        var attendance = await db.rating_log.findOne({
             where: {
+                subjectId: req.query.subjectId,
                 studentId: req.query.studentId,
-                scheduleId: req.query.scheduleId,
-                date: new Date(req.query.date)
             }
         });
 
-        attendance.state = req.query.state;
+        attendance.grade = req.query.grade;
 
         await attendance.save();
 

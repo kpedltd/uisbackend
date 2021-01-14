@@ -30,7 +30,8 @@
     "passport-local": "^1.0.0",
     "pg": "^8.5.1",
     "pg-hstore": "^2.3.3",
-    "sequelize": "^6.3.5",
+    "sequelize": "^5.22.3",
+    "sequelize-noupdate-attributes": "^1.0.0",
     "sequelize-cli": "^6.2.0",
     "serve-index": "^1.9.1"
   }

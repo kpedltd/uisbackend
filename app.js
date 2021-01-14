@@ -76,13 +76,21 @@ var routes_lecturer = require('./routes/lecturer');
 var routes_schedule = require('./routes/schedule');
 var routes_subject = require('./routes/subject');
 var routes_attendance = require('./routes/attendance');
+var routes_task = require('./routes/task');
+var routes_rating = require('./routes/rating');
+var routes_task_result = require('./routes/task_result');
+var routes_analytic = require('./routes/analytics');
+
 
 app.use('/student', routes_student);
 app.use('/lecturer', routes_lecturer);
 app.use('/schedule', routes_schedule);
 app.use('/subject', routes_subject);
 app.use('/attendance', routes_attendance);
-
+app.use('/task', routes_task);
+app.use('/rating', routes_rating);
+app.use('/task_result', routes_task_result);
+app.use('/analytic', routes_analytic);
 
 
 app.post('/say', (req, res) =>

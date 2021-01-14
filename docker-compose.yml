@@ -31,18 +31,18 @@ services:
     networks:
      - postgresql
 
-  backend:
-    image: uber42/uisbackend:V1
-    depends_on:
-     - db
-    links:
-     - db
-    networks:
-     - postgresql
-    ports:
-     - 8000:3000
-    volumes:
-     - backend_volumes:/var/app/data
+  # backend:
+  #   image: uber42/uisbackend:V1
+  #   depends_on:
+  #    - db
+  #   links:
+  #    - db
+  #   networks:
+  #    - postgresql
+  #   ports:
+  #    - 8000:3000
+  #   volumes:
+  #    - backend_volumes:/var/app/data
 
 volumes:
   backend_volumes:
