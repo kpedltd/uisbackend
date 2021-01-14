@@ -199,11 +199,7 @@ router.post('/update_photo',
     async (req, res) => 
 {
     try{
-        const tree = dirTree(__dirname + '\\..\\public', {}, null, (item, PATH, stats) => {
-            console.log(item);
-        });
-
-        await fs.writeFileSync(__dirname + '\\..\\public\\photos\\' + `${req.user.login}${req.query.photo_ext}`, req.files.file.data);
+        await fs.writeFileSync(__dirname + '/../public/photos/' + `${req.user.login}${req.query.photo_ext}`, req.files.file.data);
     
         var student = await db.student.findOne({
             where: {

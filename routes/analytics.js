@@ -5,6 +5,7 @@ var passport = require('passport');
 var db = require('../models')
 const Op = require('sequelize').Op;
 const fs = require('fs');
+const sequelize = require('sequelize')
 
 
 router.get('/charts',
@@ -12,41 +13,43 @@ router.get('/charts',
     async (req, res) => 
 {
     try{
-        var lecturer = await db.lecturer.findOne({
-            where: {
-                login: req.user.login
-            }
-        });
-
-        
-
-        var analytics = await db.attendance_log.findAll({
+        var attendance_analytics = await db.attendance_log.findAll({
             include:
             {
                 model: db.schedule,
                 where: {
-                    groupId: req.query.groupId
-                },
-                include: {
-                    model: db.subject,
-                    where: {
-                        lecturerId: lecturer.id
-                    },
-                    attributes: []
+                    groupId: req.query.groupId,
+                    subjectId: req.query.subjectId
                 },
                 attributes: []
             },
-            where: {
-                state: 'skiped'
-            }
+            attributes: [ "state", [sequelize.fn('COUNT', 'state'), "count"] ],
+            group: ['state']
         });
 
-        console.log(analytics);
+        var rating_analytics = await db.rating_log.findAll({
+            where: {
+                subjectId: req.query.subjectId
+            },
+            include:
+            {
+                model: db.student,
+                where: {
+                    groupId: req.query.groupId
+                },
+                attributes: []
+            },
+            attributes: [ "grade", [sequelize.fn('COUNT', 'grade'), "count"] ],
+            group: ['grade']
+        });
     
         res.json({
             status: true,
             error: 'Все круто',
-            data: analytics
+            data: {
+                attendance: attendance_analytics,
+                rating: rating_analytics
+            }
         });
     }
     catch(err) {

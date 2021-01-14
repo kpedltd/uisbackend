@@ -11,8 +11,6 @@ router.post('/upload_photo',
     async (req, res) => 
 {
     try{
-        console.log(req.query);
-
         await fs.writeFileSync(__dirname + '\\..\\public\\tests\\photos\\' + `${req.user.login}_${req.query.taskId}${req.query.photo_ext}`, req.files.file.data);
     
         var task = await db.task.findOne({
@@ -25,7 +23,6 @@ router.post('/upload_photo',
         task.save();
 
         res.json({
-            date: null,
             status: true,
             error: 'Все круто'
         });
@@ -37,7 +34,6 @@ router.post('/upload_photo',
             error: err.message
         });
     }
-    
 });
 
 router.get('/id',
@@ -315,6 +311,54 @@ router.post("/set_test",
         res.json({
             status: false,
             message: err.message
+        });
+    }
+});
+
+router.post('/send_answer', 
+    passport.authenticate('jwt', { session: false }), 
+    async (req, res) => 
+{
+    try{
+        var student = await db.student.findOne({
+            where: {
+                login: req.user.login
+            }
+        });
+    
+        var result = await db.task_result.findOne({
+            where: {
+                taskId: req.query.taskId,
+                studentId: student.id
+            }
+        });
+
+        if(result)
+        {
+            await db.task_result.create({
+                taskId: req.query.taskId,
+                studentId: student.id,
+                file: `/tests/photos/${req.user.login}_${req.query.taskId}${req.query.photo_ext}`
+            });
+        }
+        else
+        {
+            result.file = `/tests/photos/${req.user.login}_${req.query.taskId}${req.query.photo_ext}`;
+            await result.save();
+        }
+
+        await fs.writeFileSync(__dirname + '/../public/tests/photos/' + `${req.user.login}_${req.query.taskId}${req.query.photo_ext}`, req.files.file.data);
+
+        res.json({
+            status: true,
+            error: 'Все круто'
+        });
+    }
+    catch(err) {
+        console.log(err.message);
+        res.status(204).json({
+            status: false,
+            error: err.message
         });
     }
 });
